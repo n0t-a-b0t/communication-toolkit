@@ -90,3 +90,8 @@ port: Server port number
 ### cover.py
 
 Program to run the above programs in an easy/understandable manner.
+
+Usage:
+```
+python cover.py
+```
