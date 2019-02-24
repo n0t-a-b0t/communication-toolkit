@@ -1,24 +1,92 @@
-# communication_toolkit
-This toolkit contains basic point-to-point and group chat, file search and file transfer capabilities that can be executed at CLI. 
+# COMMUNICATION TOOLKIT
 
-Note: Python Environment: 2.7.15
-These files can be executed individually or through cover.py, which will baby feed the users with the command line arguments each code takes.
+Chat, File search and File transfer utility.
 
-Basic gist:-
-chatbox.py: Point-to-Point chat program
-  usage: As server- $python chatbox.py -fs <server ip> <port#>
-         As client- $python chatbox.py -fc <server ip> <port#>
+### chatbox.py
 
-chatbox_broadcast.py: Sets up a server for group chats. All clients must connect to this server with the '-fc' argument
-  usage: $python chatbox_broadcast.py <server ip> <port#>
+Basic point-to-point chat utility through CLI.
+
+Usage:
+```
+python chatbox.py [mode] [host] [port]
+mode:
+-fs : Act as server
+-fc : Act as client
+host: Server IPv4 Address
+port: Server port number
+```
+
+### chatbox_broadcast.py
+
+Broadcast server for group chat utility through CLI.
+
+Usage:
+```
+python chatbox_broadcast.py [host] [port]
+host: Server IPv4 address
+port: Server port number
+
+Note: All group chat clients should run chatbox.py in client mode
+```
+
+### file_search.py
+
+Searches specified file in local or foreign system.
+
+Usage:
+```
+For local file search:
+  python file_search.py -l [filename]
+ 
+ For foreign file search:
+  System initiating the search should run as client...
+  python file_search.py -fc [filename] [host] [port]
+  host: Server IPv4 Address
+  port: Server port number
+ 
+  System on which file will be searched should be run as server...
+  python file_search.py -fs [host] [port]
+  host: Server IPv4 Address
+  port: Server port number
   
-file_search.py: Performs a file search on local as well as foreign drives (default drives: Linux: '/', Windows: 'C:\')
-  usage: For local drives- $python file_search.py -l <file_name>
-         For foreign drives as a server (file will be searched in your system)- $python file_search.py -fs <server ip> <port#>
-         For foreign drives as a client (file will be searched in foreign system)-
-                $python file_seaarch.py -fc <file_name> <server ip> <port#>
+NOTE: Windows users should enter path with double-slashes
+E.g: "C:\Users\Documents" should be entered as "C:\\Users\\Documents"
+```
 
-file_transfer.py: Transfers files over the network
-  usage: As a server (file will be downloaded from you)- $python file_transfer.py -fs <server ip> <port#>
-         As a client (file will be requested by you)- 
-          $python file_transfer.py -fc <file_name to be downloaded> <file_name to be stored> <server ip> <port#>
+### file_transfer_server.py
+
+Server for file transfer operations. Files will be downloaded from or uploaded to the server machine.
+
+Usage:
+```
+python file_transfer_server.py [host] [port]
+host: Server IPv4 Address
+port: Server port number
+```
+
+### file_transfer_client.py
+
+Client for file transfer operations. Files will be downloaded to or uploaded from the client system.
+
+Usage:
+```
+python file_transfer_client.py [mode] [filename] [host] [port]
+
+mode:
+-d: download
+-u: upload
+
+filename: File name (with path if needed) to be downloaded or uploaded.
+
+NOTE: Files can be downloaded from various server directories if you give the right path, but will be uploaded to the server's hosting directory only; as in the directory from which the file_transfer_server.py is running from.
+
+NOTE: Windows users should use double-slashes in the path.
+E.g: "C:\Users\Documents" should be entered as "C:\\Users\\Documents"
+
+host: Server IPv4 Address
+port: Server port number
+```
+
+### cover.py
+
+Program to run the above programs in an easy/understandable manner.
