@@ -7,17 +7,15 @@ import os
 
 def f_xfer():
     print "\nThis will transfer files across the network\n"
+    host = str(raw_input("\nEnter server IP: "))
+    port = int(raw_input("\nEnter server port number: "))
     role = str(raw_input("\nEnter '-fs' for acting as server, '-fc' for acting as client\nEnter your choice: "))
     if role == '-fs':
-        host = str(raw_input("\nEnter IPv4 address of server: "))
-        port = int(raw_input("\nEnter server port number: "))
-        os.system('python file_transfer.py '+role+' '+host+' '+str(port))
+        os.system('python file_transfer_server.py '+host+' '+str(port))
     elif role == '-fc':
-        file_path = str(raw_input("\nEnter name (or path+name) of file you want to download: "))
-        file_name = str(raw_input("\nEnter name by which you want to store the file (with extension if possible): "))
-        host = str(raw_input("\nEnter IPv4 address of server: "))
-        port = int(raw_input("\nEnter server port number: "))
-        os.system('python file_transfer.py '+role+' '+file_path+' '+file_name+' '+host+' '+str(port))
+        operation = str(raw_input("\nEnter '-d' for downloading files | '-u' for uploading files: "))
+        file_path = str(raw_input("\nEnter the file path for downloading/uploading: "))
+        os.system('python file_transfer_client.py '+operation+' '+file_path+' '+host+' '+str(port))
     else:
         print "\nEnter either '-fs' or '-fc' please...\n"
         f_xfer()

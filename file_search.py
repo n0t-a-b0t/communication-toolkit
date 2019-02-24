@@ -53,13 +53,17 @@ def for_sys_cli(file_name, host, port):
 
 
 def search_engine(file_name):
-    if platform.system() == 'Linux':
-        path = '/'
-    elif platform.system() == 'Windows':
-        path = 'C:\\'
+    given_path = str(raw_input("Enter a specific path if you want, else press 'Enter' for a full directory search: "))
+    if given_path:
+        path = given_path
     else:
-        print "System not supported..."
-        return
+        if platform.system() == 'Linux':
+            path = '/'
+        elif platform.system() == 'Windows':
+            path = 'C:\\'
+        else:
+            print "System not supported..."
+            return
 
     pattern_obj = re.compile(file_name)
     counter01 = True
